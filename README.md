@@ -38,7 +38,7 @@ program).
 
 ## Citing Locality Aware Memory Assignment and Tiling
 
-Please cite LeFlow in your publications if it helps your research work:
+Please cite Locality Aware Memory Assignment and Tiling in your publications if it helps your research work:
 ```
 @inproceedings{lamat,
  author = {Rogers, Samuel and Tabkhi, Hamed},
