@@ -6,6 +6,7 @@
 ./src/llvm_parser test/gemm-unrolled.ll
 ./src/llvm_parser test/md.ll
 ./src/llvm_parser test/md-grid.ll
+./src/llvm_parser test/nw.ll
 ./src/llvm_parser test/spmv.ll
 ./src/llvm_parser test/stencil2d.ll
 ./src/llvm_parser test/stencil3d.ll

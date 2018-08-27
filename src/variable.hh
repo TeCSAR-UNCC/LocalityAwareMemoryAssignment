@@ -55,7 +55,7 @@ class Variable {
     int stride;
     std::string strideStr;
   protected:
-    bool chkPredictable(Dependency * dep, int headerPtr,
+    bool chkPredictable(Dependency * dep, dep_vector * ldet, int headerPtr,
                         std::vector<std::string> * globals,
                         std::ifstream * file);
     bool isStructType() { return varType.find("struct")!=std::string::npos; }

@@ -131,8 +131,9 @@ Variable::updPredictable(int headerPtr, vector<std::string> * globals,
     }
     i = 0;
     while(predictable && i < max) {
+        dep_vector *loop_detect = new dep_vector();
         predictable &= chkPredictable(deps.back()->at(i),
-            headerPtr, globals, file);
+            loop_detect, headerPtr, globals, file);
         i++;
     }
 }
@@ -140,8 +141,16 @@ Variable::updPredictable(int headerPtr, vector<std::string> * globals,
 
 
 bool
-Variable::chkPredictable(Dependency * dep, int headerPtr, vector<std::string> * globals,
+Variable::chkPredictable(Dependency * dep, dep_vector* ldet, int headerPtr, vector<std::string> * globals,
                          ifstream * file) {
+    if (!ldet->empty()) {
+        for (int i=0; i<ldet->size(); i++) {
+            if (dep->getName() == ldet->at(i)->getName()) {
+                return true;
+            }
+        }
+    }
+    ldet->push_back(dep);
     bool cond = true;
     bool fulleval = false;
     if (dep->getType()==INDUCTION || dep->getType()==CONSTANT  ||
@@ -177,7 +186,7 @@ Variable::chkPredictable(Dependency * dep, int headerPtr, vector<std::string> * 
                     cond &= true;
                 } else {
                     for (int i=0; i<tmp->size(); i++) {
-                        cond &= chkPredictable(tmp->at(i), headerPtr, globals, file);
+                        cond &= chkPredictable(tmp->at(i), ldet,headerPtr, globals, file);
                         if (!cond)
                             break;
                     }
