@@ -50,11 +50,13 @@ Function::Function(string line, vector<string> *fileGlobals, int pos) {
     for (int i=0; i<fileGlobals->size(); i++) {
         globals.push_back(fileGlobals->at(i));
     }
-    while (ptr < params.rfind("%")) {
-        ptr = params.find("%", ptr) + 1;
-        if (params.substr(ptr, 6).compare("struct") != 0) {
-            size_t endptr = params.find_first_of(",)", ptr);
-            globals.push_back(params.substr(ptr, endptr-ptr));
+    if (params.length()>0) {
+        while (ptr < params.rfind("%")) {
+            ptr = params.find("%", ptr) + 1;
+            if (params.substr(ptr, 6).compare("struct") != 0) {
+                size_t endptr = params.find_first_of(",)", ptr);
+                globals.push_back(params.substr(ptr, endptr-ptr));
+            }
         }
     }
     bbList.push_back("%0");
